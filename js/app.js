@@ -182,10 +182,17 @@ const initUI = () => {
     whatsappButtons.forEach((button) => {
         button.addEventListener('click', () => {
             const profileText = profileLabels[selection.profile] || 'Residencial';
-            const planText = selection.plan || 'Não definido';
+            const planText = selection.plan || 'Não informado';
             const routerText = selection.router || 'Sem roteador';
-            const message = `Olá! Gostaria de falar com o escritório.%0APerfil: ${profileText}%0APlano: ${planText}%0ARoteador: ${routerText}`;
-            const url = `https://wa.me/557799390980?text=${message}`;
+            const message = [
+                'Olá! Gostaria de falar com o escritório.',
+                '',
+                '📌 *Resumo do pedido*',
+                `• Perfil: ${profileText}`,
+                `• Plano: ${planText}`,
+                `• Roteador: ${routerText}`,
+            ].join('\n');
+            const url = `https://wa.me/557799390980?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank', 'noopener');
         });
     });
