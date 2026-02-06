@@ -4,6 +4,26 @@
     background-size: 32px 32px;
 }
 
+.bg-brand-primary {
+    background-color: #0284c7;
+}
+
+.text-brand-primary {
+    color: #0284c7;
+}
+
+.border-brand-primary {
+    border-color: #0284c7;
+}
+
+.text-brand-dark {
+    color: #0f172a;
+}
+
+.bg-brand-dark {
+    background-color: #0f172a;
+}
+
 .active-tab {
     background-color: #0284c7;
     color: white;
