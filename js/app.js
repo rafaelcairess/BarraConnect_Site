@@ -11,7 +11,9 @@ const loadPartials = async () => {
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
-            const html = await response.text();
+            const buffer = await response.arrayBuffer();
+            const decoder = new TextDecoder('utf-8');
+            const html = decoder.decode(buffer);
             placeholder.innerHTML = html;
         } catch (error) {
             console.error(`Failed to load partial: ${path}`, error);
