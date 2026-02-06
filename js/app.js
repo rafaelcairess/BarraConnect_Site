@@ -89,6 +89,19 @@ const initUI = () => {
     const variantButtons = document.querySelectorAll('[data-variant-toggle]');
     const variantSections = document.querySelectorAll('[data-variant]');
 
+    const selection = {
+        profile: 'residencial',
+        plan: null,
+        router: 'Sem roteador',
+    };
+
+    const profileLabels = {
+        residencial: 'Residencial',
+        comercial: 'Comercial',
+    };
+
+    const updateSummary = () => {};
+
     const setVariant = (variant) => {
         variantButtons.forEach((button) => {
             const isActive = button.dataset.variantToggle === variant;
@@ -102,6 +115,9 @@ const initUI = () => {
             section.classList.toggle('hidden', !isActive);
             section.setAttribute('aria-hidden', String(!isActive));
         });
+
+        selection.profile = variant;
+        updateSummary();
     };
 
     const initialVariant = document.querySelector('[data-variant-toggle].active-tab')?.dataset.variantToggle || 'residencial';
@@ -110,6 +126,67 @@ const initUI = () => {
     variantButtons.forEach((button) => {
         button.addEventListener('click', () => {
             setVariant(button.dataset.variantToggle);
+        });
+    });
+
+    const planButtons = document.querySelectorAll('[data-plan-select]');
+    planButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const plan = button.dataset.planSelect;
+            if (plan) {
+                selection.plan = plan;
+                updateSummary();
+            }
+
+            planButtons.forEach((btn) => {
+                btn.classList.remove('ring-2', 'ring-brand-primary');
+            });
+            button.classList.add('ring-2', 'ring-brand-primary');
+
+            const solutionsSection = document.getElementById('solucao');
+            solutionsSection?.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    const routerButtons = document.querySelectorAll('[data-router-select]');
+    routerButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const router = button.dataset.routerSelect;
+            if (!router) {
+                return;
+            }
+
+            if (selection.router === router) {
+                selection.router = 'Sem roteador';
+                routerButtons.forEach((btn) => {
+                    btn.classList.remove('ring-2', 'ring-brand-primary');
+                });
+                updateSummary();
+                return;
+            }
+
+            selection.router = router;
+            updateSummary();
+
+            routerButtons.forEach((btn) => {
+                btn.classList.remove('ring-2', 'ring-brand-primary');
+            });
+            button.classList.add('ring-2', 'ring-brand-primary');
+
+            const contactSection = document.getElementById('contato');
+            contactSection?.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    const whatsappButtons = document.querySelectorAll('[data-whatsapp-send]');
+    whatsappButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const profileText = profileLabels[selection.profile] || 'Residencial';
+            const planText = selection.plan || 'Não definido';
+            const routerText = selection.router || 'Sem roteador';
+            const message = `Olá! Gostaria de falar com o escritório.%0APerfil: ${profileText}%0APlano: ${planText}%0ARoteador: ${routerText}`;
+            const url = `https://wa.me/557799390980?text=${message}`;
+            window.open(url, '_blank', 'noopener');
         });
     });
 
@@ -132,6 +209,8 @@ const initUI = () => {
             button.setAttribute('aria-expanded', String(isHidden));
         });
     });
+
+    updateSummary();
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
