@@ -1,4 +1,5 @@
 const loadPartials = async () => {
+    const cacheBuster = 'v=2';
     const placeholders = document.querySelectorAll('[data-include]');
     const requests = Array.from(placeholders).map(async (placeholder) => {
         const path = placeholder.dataset.include;
@@ -7,7 +8,8 @@ const loadPartials = async () => {
         }
 
         try {
-            const response = await fetch(path);
+            const url = path.includes('?') ? `${path}&${cacheBuster}` : `${path}?${cacheBuster}`;
+            const response = await fetch(url, { cache: 'no-store' });
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
