@@ -143,8 +143,13 @@ const initUI = () => {
             });
             button.classList.add('ring-2', 'ring-brand-primary');
 
-            const solutionsSection = document.getElementById('solucao');
-            solutionsSection?.scrollIntoView({ behavior: 'smooth' });
+            if (selection.profile === 'comercial') {
+                const mikrotikCard = document.getElementById('mikrotik-card');
+                mikrotikCard?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                const solutionsSection = document.getElementById('solucao');
+                solutionsSection?.scrollIntoView({ behavior: 'smooth' });
+            }
         });
     });
 
