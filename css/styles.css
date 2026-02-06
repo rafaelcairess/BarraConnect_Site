@@ -1,0 +1,43 @@
+.hero-pattern {
+    background-color: #0f172a;
+    background-image: radial-gradient(#1e293b 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+
+.active-tab {
+    background-color: #0284c7;
+    color: white;
+    border-color: #0284c7;
+}
+
+.inactive-tab {
+    background-color: white;
+    color: #475569;
+    border-color: #e2e8f0;
+}
+
+.dark .inactive-tab {
+    background-color: #1e293b;
+    color: #94a3b8;
+    border-color: #334155;
+}
+
+.dark .inactive-tab:hover {
+    background-color: #334155;
+    color: #38bdf8;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

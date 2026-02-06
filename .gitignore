@@ -1,0 +1,17 @@
+﻿# System
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Node
+node_modules/
+
+# Build/Cache
+.cache/
+dist/
+
+# Vercel
+.vercel/
