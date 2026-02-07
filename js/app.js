@@ -102,6 +102,37 @@ const initUI = () => {
 
     const updateSummary = () => {};
 
+    const normalizeName = (value) => {
+        if (!value) {
+            return [];
+        }
+        const particles = new Set(['de', 'da', 'do', 'dos', 'das', 'e']);
+        return value
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .split(/\s+/)
+            .map((part) => part.replace(/[^a-z]/g, ''))
+            .filter((part) => part.length > 0 && !particles.has(part));
+    };
+
+    const generatePppoeUser = (fullName) => {
+        const parts = normalizeName(fullName);
+        if (parts.length === 0) {
+            return '';
+        }
+        const first = parts[0];
+        if (parts.length === 1) {
+            return first;
+        }
+        if (parts.length === 2) {
+            return `${first}${parts[1][0]}`;
+        }
+        const penultimate = parts[parts.length - 2];
+        const last = parts[parts.length - 1];
+        return `${first}${penultimate[0]}${last[0]}`;
+    };
+
     const setVariant = (variant) => {
         variantButtons.forEach((button) => {
             const isActive = button.dataset.variantToggle === variant;
@@ -201,6 +232,73 @@ const initUI = () => {
             window.open(url, '_blank', 'noopener');
         });
     });
+
+    const cadastroForm = document.getElementById('cadastro-form');
+    if (cadastroForm) {
+        const nameInput = document.getElementById('cadastro-nome');
+        const cpfInput = document.getElementById('cadastro-cpf');
+        const planSelect = document.getElementById('cadastro-plano');
+        const dueSelect = document.getElementById('cadastro-vencimento');
+        const routerSelect = document.getElementById('cadastro-roteador');
+        const consentInput = document.getElementById('cadastro-consent');
+
+        const sanitizeCpf = () => {
+            if (!cpfInput) {
+                return;
+            }
+            const digits = cpfInput.value.replace(/\D/g, '').slice(0, 11);
+            cpfInput.value = digits;
+        };
+
+        const updateConsentValidity = () => {
+            if (!consentInput) {
+                return;
+            }
+            consentInput.setCustomValidity(consentInput.checked ? '' : 'Confirme o consentimento para enviar.');
+        };
+
+        cpfInput?.addEventListener('input', sanitizeCpf);
+        consentInput?.addEventListener('change', updateConsentValidity);
+        updateConsentValidity();
+
+        if (selection.plan && planSelect) {
+            planSelect.value = selection.plan;
+        }
+        if (selection.router && routerSelect) {
+            routerSelect.value = selection.router;
+        }
+
+        cadastroForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            updateConsentValidity();
+            sanitizeCpf();
+
+            if (!cadastroForm.checkValidity()) {
+                cadastroForm.reportValidity();
+                return;
+            }
+
+            const fullName = nameInput?.value.trim() || '';
+            const cpfRaw = cpfInput?.value.trim() || '';
+            const plan = planSelect?.value || 'Não informado';
+            const due = dueSelect?.value || 'Não informado';
+            const router = routerSelect?.value || 'Sem roteador';
+            const pppoeUser = generatePppoeUser(fullName);
+
+            const message = [
+                'Novo cadastro (site)',
+                `Nome: ${fullName}`,
+                `CPF: ${cpfRaw}`,
+                `Plano: ${plan}`,
+                `Vencimento: dia ${due}`,
+                `Roteador: ${router}`,
+                `PPPoE usuário: ${pppoeUser || 'Não informado'}`,
+            ].join('\n');
+
+            const url = `https://wa.me/557799390980?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank', 'noopener');
+        });
+    }
 
     const collapseButtons = document.querySelectorAll('[data-collapse-toggle]');
     collapseButtons.forEach((button) => {

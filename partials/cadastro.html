@@ -1,0 +1,81 @@
+<!-- Cadastro Section -->
+<section id="cadastro" class="py-20 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto mb-6">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Cadastro Rápido</h2>
+        </div>
+
+        <div class="max-w-3xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-6 md:p-10">
+            <form id="cadastro-form" class="space-y-6" novalidate>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="cadastro-nome" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Nome completo</label>
+                        <input id="cadastro-nome" name="nome" type="text" required placeholder="Ex: Rafael Pereira Caires Pires"
+                            class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                    </div>
+                    <div>
+                        <label for="cadastro-cpf" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">CPF</label>
+                        <input id="cadastro-cpf" name="cpf" type="text" inputmode="numeric" autocomplete="off" required
+                            placeholder="Somente números"
+                            class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Ex: 04120376500</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <label for="cadastro-plano" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Plano</label>
+                        <select id="cadastro-plano" name="plano" required
+                            class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="60 Mega">60 Mega</option>
+                            <option value="120 Mega">120 Mega</option>
+                            <option value="300 Mega">300 Mega</option>
+                            <option value="400 Mega">400 Mega</option>
+                            <option value="500 Mega">500 Mega</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="cadastro-vencimento" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Vencimento</label>
+                        <select id="cadastro-vencimento" name="vencimento" required
+                            class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                            <option value="" disabled selected>Escolha o dia</option>
+                            <option value="5">Dia 5</option>
+                            <option value="10">Dia 10</option>
+                            <option value="15">Dia 15</option>
+                            <option value="20">Dia 20</option>
+                            <option value="25">Dia 25</option>
+                            <option value="30">Dia 30</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="cadastro-roteador" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Roteador</label>
+                        <select id="cadastro-roteador" name="roteador" required
+                            class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="Huawei AX2S">Huawei AX2S</option>
+                            <option value="Intelbras W5-1200GS">Intelbras W5-1200GS</option>
+                            <option value="Sem roteador">Sem roteador</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl p-4">
+                    <label class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
+                        <input id="cadastro-consent" type="checkbox" required class="mt-1 h-4 w-4 accent-brand-primary">
+                        <span>
+                            Autorizo o uso dos meus dados para atendimento e contato da Barra Connect.
+                        </span>
+                    </label>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                        A senha PPPoE é definida pelo escritório.
+                    </p>
+                </div>
+
+                <button type="submit" class="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded-full transition shadow-lg shadow-green-900/30">
+                    Enviar para o WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
