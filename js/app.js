@@ -102,35 +102,44 @@ const initUI = () => {
 
     const updateSummary = () => {};
 
-    const normalizeName = (value) => {
+    const formatVisitDate = (value) => {
         if (!value) {
-            return [];
+            return 'Não informado';
         }
-        const particles = new Set(['de', 'da', 'do', 'dos', 'das', 'e']);
-        return value
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .split(/\s+/)
-            .map((part) => part.replace(/[^a-z]/g, ''))
-            .filter((part) => part.length > 0 && !particles.has(part));
+        const [year, month, day] = value.split('-').map(Number);
+        if (!year || !month || !day) {
+            return value;
+        }
+        const date = new Date(year, month - 1, day);
+        return date.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+        });
     };
 
-    const generatePppoeUser = (fullName) => {
-        const parts = normalizeName(fullName);
-        if (parts.length === 0) {
-            return '';
+    const formatVisitTime = (value) => {
+        if (!value) {
+            return 'Não informado';
         }
-        const first = parts[0];
-        if (parts.length === 1) {
-            return first;
+        const [hourRaw, minuteRaw] = value.split(':');
+        const hour = Number(hourRaw);
+        const minute = minuteRaw ?? '00';
+        const normalizedHour = Number.isNaN(hour) ? hourRaw : String(hour).padStart(2, '0');
+        let period = 'da tarde';
+        if (hour < 12) {
+            period = 'da manhã';
+        } else if (hour >= 18) {
+            period = 'da noite';
         }
-        if (parts.length === 2) {
-            return `${first}${parts[1][0]}`;
+        return `${normalizedHour}:${minute} ${period}`;
+    };
+
+    const isTimeAllowed = (value) => {
+        if (!value) {
+            return false;
         }
-        const penultimate = parts[parts.length - 2];
-        const last = parts[parts.length - 1];
-        return `${first}${penultimate[0]}${last[0]}`;
+        return (value >= '08:30' && value <= '11:30') || (value >= '14:00' && value <= '18:00');
     };
 
     const setVariant = (variant) => {
@@ -221,12 +230,12 @@ const initUI = () => {
             const planText = selection.plan || 'Não informado';
             const routerText = selection.router || 'Sem roteador';
             const message = [
-                'Olá! Gostaria de falar com o escritório.',
+                'Olá! Gostaria de falar com o suporte.',
                 '',
-                '📌 *Resumo do pedido*',
-                `• Perfil: ${profileText}`,
-                `• Plano: ${planText}`,
-                `• Roteador: ${routerText}`,
+                'Resumo do pedido',
+                `Perfil: ${profileText}`,
+                `Plano: ${planText}`,
+                `Roteador: ${routerText}`,
             ].join('\n');
             const url = `https://wa.me/557799390980?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank', 'noopener');
@@ -240,7 +249,21 @@ const initUI = () => {
         const planSelect = document.getElementById('cadastro-plano');
         const dueSelect = document.getElementById('cadastro-vencimento');
         const routerSelect = document.getElementById('cadastro-roteador');
+        const routerInputs = Array.from(document.querySelectorAll('input[name="roteador"]'));
         const consentInput = document.getElementById('cadastro-consent');
+        const streetInput = document.getElementById('cadastro-rua');
+        const neighborhoodInput = document.getElementById('cadastro-bairro');
+        const localitySelect = document.getElementById('cadastro-localidade');
+        const referenceInput = document.getElementById('cadastro-referencia');
+        const visitInput = document.getElementById('cadastro-visita');
+        const timeInput = document.getElementById('cadastro-horario');
+
+        const setRequiredMessage = (input, message) => {
+            if (!input) {
+                return;
+            }
+            input.setCustomValidity(input.value ? '' : message);
+        };
 
         const sanitizeCpf = () => {
             if (!cpfInput) {
@@ -257,33 +280,118 @@ const initUI = () => {
             consentInput.setCustomValidity(consentInput.checked ? '' : 'Confirme o consentimento para enviar.');
         };
 
-        cpfInput?.addEventListener('input', sanitizeCpf);
+        const updateTimeValidity = () => {
+            if (!timeInput) {
+                return;
+            }
+            if (!timeInput.value) {
+            timeInput.setCustomValidity('Selecione o horário da visita.');
+                return;
+            }
+            timeInput.setCustomValidity(
+                isTimeAllowed(timeInput.value)
+                    ? ''
+                    : 'Horários disponíveis para técnico e suporte: 08:30–11:30 e 14:00–18:00.'
+            );
+        };
+
+        const updateRouterValidity = () => {
+            if (routerInputs.length === 0) {
+                setRequiredMessage(routerSelect, 'Selecione o roteador.');
+                return;
+            }
+
+            const firstRadio = routerInputs[0];
+            const isChecked = routerInputs.some((input) => input.checked);
+            if (firstRadio) {
+                firstRadio.setCustomValidity(isChecked ? '' : 'Selecione o roteador.');
+            }
+        };
+
+        const updateRequiredValidity = () => {
+            setRequiredMessage(nameInput, 'Informe o nome completo.');
+            setRequiredMessage(cpfInput, 'Informe o CPF.');
+            setRequiredMessage(planSelect, 'Selecione um plano.');
+            setRequiredMessage(dueSelect, 'Selecione o vencimento.');
+            updateRouterValidity();
+            setRequiredMessage(streetInput, 'Informe a rua.');
+            setRequiredMessage(visitInput, 'Selecione a data da visita.');
+            setRequiredMessage(timeInput, 'Selecione o horário da visita.');
+        };
+
+        cpfInput?.addEventListener('input', () => {
+            sanitizeCpf();
+            setRequiredMessage(cpfInput, 'Informe o CPF.');
+        });
+        nameInput?.addEventListener('input', () => setRequiredMessage(nameInput, 'Informe o nome completo.'));
+        planSelect?.addEventListener('change', () => setRequiredMessage(planSelect, 'Selecione um plano.'));
+        dueSelect?.addEventListener('change', () => setRequiredMessage(dueSelect, 'Selecione o vencimento.'));
+        routerSelect?.addEventListener('change', () => setRequiredMessage(routerSelect, 'Selecione o roteador.'));
+        streetInput?.addEventListener('input', () => setRequiredMessage(streetInput, 'Informe a rua.'));
+        visitInput?.addEventListener('change', () => setRequiredMessage(visitInput, 'Selecione a data da visita.'));
+        timeInput?.addEventListener('change', updateTimeValidity);
         consentInput?.addEventListener('change', updateConsentValidity);
+
+        routerInputs.forEach((input) => {
+            input.addEventListener('change', () => {
+                routerInputs.forEach((item) => {
+                    item.closest('label')?.classList.remove('ring-2', 'ring-brand-primary');
+                });
+                input.closest('label')?.classList.add('ring-2', 'ring-brand-primary');
+                updateRouterValidity();
+            });
+        });
+
         updateConsentValidity();
 
         if (selection.plan && planSelect) {
-            planSelect.value = selection.plan;
+            const planOption = Array.from(planSelect.options).find((option) =>
+                option.value.startsWith(selection.plan)
+            );
+            if (planOption) {
+                planSelect.value = planOption.value;
+            }
         }
-        if (selection.router && routerSelect) {
-            routerSelect.value = selection.router;
+        if (selection.router) {
+            if (routerSelect) {
+                const routerOption = Array.from(routerSelect.options).find((option) => option.value === selection.router);
+                if (routerOption) {
+                    routerSelect.value = routerOption.value;
+                }
+            }
+            if (routerInputs.length) {
+                const routerInput = routerInputs.find((input) => input.value === selection.router);
+                if (routerInput) {
+                    routerInput.checked = true;
+                    routerInput.closest('label')?.classList.add('ring-2', 'ring-brand-primary');
+                }
+            }
         }
 
         cadastroForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            updateConsentValidity();
             sanitizeCpf();
+            updateRequiredValidity();
+            updateConsentValidity();
+            updateTimeValidity();
 
             if (!cadastroForm.checkValidity()) {
                 cadastroForm.reportValidity();
                 return;
             }
 
-            const fullName = nameInput?.value.trim() || '';
-            const cpfRaw = cpfInput?.value.trim() || '';
+            const fullName = nameInput?.value.trim() || 'Não informado';
+            const cpfRaw = cpfInput?.value.trim() || 'Não informado';
             const plan = planSelect?.value || 'Não informado';
             const due = dueSelect?.value || 'Não informado';
-            const router = routerSelect?.value || 'Sem roteador';
-            const pppoeUser = generatePppoeUser(fullName);
+            const routerValue =
+                routerInputs.find((input) => input.checked)?.value || routerSelect?.value || 'Sem roteador';
+            const street = streetInput?.value.trim() || 'Não informado';
+            const neighborhood = neighborhoodInput?.value.trim() || 'Não informado';
+            const locality = localitySelect?.value || 'Não informado';
+            const reference = referenceInput?.value.trim() || 'Não informado';
+            const visitDate = formatVisitDate(visitInput?.value || '');
+            const visitTime = formatVisitTime(timeInput?.value || '');
 
             const message = [
                 'Novo cadastro (site)',
@@ -292,7 +400,11 @@ const initUI = () => {
                 `Plano: ${plan}`,
                 `Vencimento: dia ${due}`,
                 `Roteador: ${router}`,
-                `PPPoE usuário: ${pppoeUser || 'Não informado'}`,
+                `Rua: ${street}`,
+                `Bairro: ${neighborhood}`,
+                `Localidade: ${locality}`,
+                `Referência: ${reference}`,
+                `Visita: ${visitDate} às ${visitTime}`,
             ].join('\n');
 
             const url = `https://wa.me/557799390980?text=${encodeURIComponent(message)}`;

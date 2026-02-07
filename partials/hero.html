@@ -1,15 +1,32 @@
 ﻿<!-- Hero Section -->
-    <section class="hero-pattern text-white pt-36 pb-24 relative overflow-hidden">
+    <section class="hero-pattern text-white pt-32 pb-20 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900/80 dark:to-slate-950/90 pointer-events-none"></div>
-        <div class="container mx-auto px-4 text-center relative z-10">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight">
-                Como Funciona a <span class="text-brand-primary">Barra Connect</span>
-            </h1>
-            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 font-light">
-                Entenda tecnicamente por que a velocidade contratada às vezes não chega ao seu dispositivo e como resolver o gargalo interno.
-            </p>
-            
-            <div class="animate-bounce mt-4">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center text-center lg:text-left">
+                <div>
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight">
+                        Como Funciona a <span class="text-brand-primary">Barra Connect</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-300 max-w-xl mb-8 font-light">
+                        Entenda tecnicamente por que a velocidade contratada às vezes não chega ao seu dispositivo e como resolver o gargalo interno.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center lg:items-start gap-4">
+                        <a href="#cadastro" class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-green-600 hover:bg-green-500 text-white font-bold transition shadow-lg shadow-green-900/40">
+                            Cadastro rápido
+                        </a>
+                        <a href="#perfil" class="inline-flex items-center justify-center px-8 py-3 rounded-full border border-white/40 text-white font-semibold hover:border-brand-primary hover:text-brand-primary transition">
+                            Ver conteúdo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative lg:order-last order-first">
+                    <img src="assets/connect.png" alt="Infraestrutura Barra Connect" class="w-full h-auto max-h-80 object-contain rounded-2xl">
+                </div>
+            </div>
+
+            <div class="animate-bounce mt-10 text-center">
                 <a href="#perfil" class="text-brand-primary hover:text-white transition">
                     <i data-lucide="chevron-down" class="h-10 w-10 mx-auto"></i>
                 </a>

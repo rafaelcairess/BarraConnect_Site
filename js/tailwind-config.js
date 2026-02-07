@@ -7,10 +7,10 @@ tailwind.config = {
             },
             colors: {
                 brand: {
-                    dark: '#0f172a',
-                    primary: '#0284c7',
+                    dark: '#0b1224',
+                    primary: '#2563eb',
                     light: '#e0f2fe',
-                    accent: '#f97316',
+                    accent: '#ef4444',
                     disabled: '#94a3b8',
                 },
             },

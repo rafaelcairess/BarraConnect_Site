@@ -1,33 +1,33 @@
 .hero-pattern {
-    background-color: #0f172a;
-    background-image: radial-gradient(#1e293b 1px, transparent 1px);
+    background-color: #0b1224;
+    background-image: radial-gradient(#1b2a4a 1px, transparent 1px);
     background-size: 32px 32px;
 }
 
 .bg-brand-primary {
-    background-color: #0284c7;
+    background-color: #2563eb;
 }
 
 .text-brand-primary {
-    color: #0284c7;
+    color: #2563eb;
 }
 
 .border-brand-primary {
-    border-color: #0284c7;
+    border-color: #2563eb;
 }
 
 .text-brand-dark {
-    color: #0f172a;
+    color: #0b1224;
 }
 
 .bg-brand-dark {
-    background-color: #0f172a;
+    background-color: #0b1224;
 }
 
 .active-tab {
-    background-color: #0284c7;
+    background-color: #2563eb;
     color: white;
-    border-color: #0284c7;
+    border-color: #2563eb;
 }
 
 .inactive-tab {
@@ -45,6 +45,41 @@
 .dark .inactive-tab:hover {
     background-color: #334155;
     color: #38bdf8;
+}
+
+.dark body {
+    background-color: #0f1c3a;
+    background-image:
+        radial-gradient(circle at top, rgba(37, 99, 235, 0.18), transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(239, 68, 68, 0.15), transparent 55%);
+}
+
+.dark .bg-slate-950 {
+    background-color: #0f1c3a;
+}
+
+.dark .bg-slate-900 {
+    background-color: #122144;
+}
+
+.dark .bg-slate-800 {
+    background-color: #172a52;
+}
+
+.dark .border-slate-800 {
+    border-color: #2a3f6b;
+}
+
+.dark .border-slate-700 {
+    border-color: #334a78;
+}
+
+.dark .text-slate-300 {
+    color: #e2e8ff;
+}
+
+.dark .text-slate-400 {
+    color: #c6d2f2;
 }
 
 .fade-in {
