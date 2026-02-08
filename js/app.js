@@ -31,43 +31,10 @@ const initUI = () => {
     }
 
     const root = document.documentElement;
-    const themeButtons = document.querySelectorAll('[data-theme-toggle]');
     const menuToggle = document.querySelector('[data-menu-toggle]');
     const menuTargetId = menuToggle?.dataset.menuTarget;
     const menu = menuTargetId ? document.getElementById(menuTargetId) : null;
 
-    const updateThemeButtons = () => {
-        const isDark = root.classList.contains('dark');
-        themeButtons.forEach((button) => {
-            button.setAttribute('aria-pressed', String(isDark));
-        });
-    };
-
-    const setTheme = (mode) => {
-        if (mode === 'dark') {
-            root.classList.add('dark');
-        } else {
-            root.classList.remove('dark');
-        }
-        localStorage.theme = mode;
-        updateThemeButtons();
-    };
-
-    const getPreferredTheme = () => {
-        if (localStorage.theme === 'dark' || localStorage.theme === 'light') {
-            return localStorage.theme;
-        }
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    };
-
-    setTheme(getPreferredTheme());
-
-    themeButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-            const nextTheme = root.classList.contains('dark') ? 'light' : 'dark';
-            setTheme(nextTheme);
-        });
-    });
 
     if (menuToggle && menu) {
         menuToggle.addEventListener('click', () => {
@@ -230,12 +197,12 @@ const initUI = () => {
             const planText = selection.plan || 'Não informado';
             const routerText = selection.router || 'Sem roteador';
             const message = [
-                'Olá! Gostaria de falar com o suporte.',
+                '👋 Olá! Preciso de suporte.',
                 '',
-                'Resumo do pedido',
-                `Perfil: ${profileText}`,
-                `Plano: ${planText}`,
-                `Roteador: ${routerText}`,
+                '📌 *Resumo do pedido*',
+                `👤 Perfil: ${profileText}`,
+                `📶 Plano: ${planText}`,
+                `📡 Roteador: ${routerText}`,
             ].join('\n');
             const url = `https://wa.me/557799390980?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank', 'noopener');
@@ -394,17 +361,17 @@ const initUI = () => {
             const visitTime = formatVisitTime(timeInput?.value || '');
 
             const message = [
-                'Novo cadastro (site)',
-                `Nome: ${fullName}`,
-                `CPF: ${cpfRaw}`,
-                `Plano: ${plan}`,
-                `Vencimento: dia ${due}`,
-                `Roteador: ${router}`,
-                `Rua: ${street}`,
-                `Bairro: ${neighborhood}`,
-                `Localidade: ${locality}`,
-                `Referência: ${reference}`,
-                `Visita: ${visitDate} às ${visitTime}`,
+                '🧾 *Novo cadastro (site)*',
+                `👤 Nome: ${fullName}`,
+                `🪪 CPF: ${cpfRaw}`,
+                `📶 Plano: ${plan}`,
+                `📅 Vencimento: dia ${due}`,
+                `📡 Roteador: ${router}`,
+                `📍 Rua: ${street}`,
+                `🏘️ Bairro: ${neighborhood}`,
+                `🌆 Localidade: ${locality}`,
+                `🧭 Referência: ${reference}`,
+                `🗓️ Visita: ${visitDate} às ${visitTime}`,
             ].join('\n');
 
             const url = `https://wa.me/557799390980?text=${encodeURIComponent(message)}`;
