@@ -4,6 +4,20 @@
     background-size: 32px 32px;
 }
 
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
 .bg-brand-primary {
     background-color: #2563eb;
 }
