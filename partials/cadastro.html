@@ -1,11 +1,15 @@
 ﻿<!-- Cadastro Section -->
-<section id="cadastro" class="py-20 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
+<section id="cadastro" class="pt-28 pb-20 md:pt-32 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
     <div class="container mx-auto px-4">
         <div class="max-w-5xl mx-auto mb-8">
             <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Cadastro Rápido</h2>
             <p class="text-slate-600 dark:text-slate-300 mt-3">
                 Envie seus dados direto para o suporte e acelere o seu atendimento.
             </p>
+            <a href="reclamacao.html" class="inline-flex items-center gap-2 mt-4 text-lg md:text-xl font-extrabold text-brand-primary hover:text-blue-400 transition">
+                Relatar problema de internet
+                <i data-lucide="arrow-right" class="h-4 w-4"></i>
+            </a>
         </div>
 
         <div class="max-w-5xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-6 md:p-10">
@@ -13,7 +17,7 @@
                 <div class="grid gap-6 lg:grid-cols-2">
                     <div class="space-y-6">
                         <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/50 p-5">
-                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Dados pessoais</h3>
+                            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4">Dados pessoais</h3>
                             <div class="grid sm:grid-cols-2 gap-4">
                                 <div>
                                     <label for="cadastro-nome" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Nome completo</label>
@@ -162,6 +166,9 @@
                 </div>
 
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-t border-slate-200 dark:border-slate-800 pt-6">
+                    <p class="text-sm text-slate-600 dark:text-slate-300">
+                        Enviaremos sua reclamação direto para o suporte.
+                    </p>
                     <label class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
                         <input id="cadastro-consent" type="checkbox" required class="mt-1 h-4 w-4 accent-brand-primary">
                         <span>

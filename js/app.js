@@ -366,12 +366,118 @@ const initUI = () => {
                 `🪪 CPF: ${cpfRaw}`,
                 `📶 Plano: ${plan}`,
                 `📅 Vencimento: dia ${due}`,
-                `📡 Roteador: ${router}`,
+                `📡 Roteador: ${routerValue}`,
                 `📍 Rua: ${street}`,
                 `🏘️ Bairro: ${neighborhood}`,
                 `🌆 Localidade: ${locality}`,
                 `🧭 Referência: ${reference}`,
                 `🗓️ Visita: ${visitDate} às ${visitTime}`,
+            ].join('\n');
+
+            const url = `https://wa.me/557799390980?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank', 'noopener');
+        });
+    }
+
+    const reclamacaoForm = document.getElementById('reclamacao-form');
+    if (reclamacaoForm) {
+        const nameInput = document.getElementById('reclamacao-nome');
+        const phoneInput = document.getElementById('reclamacao-telefone');
+        const streetInput = document.getElementById('reclamacao-rua');
+        const neighborhoodInput = document.getElementById('reclamacao-bairro');
+        const localitySelect = document.getElementById('reclamacao-localidade');
+        const referenceInput = document.getElementById('reclamacao-referencia');
+        const visitInput = document.getElementById('reclamacao-visita');
+        const timeInput = document.getElementById('reclamacao-horario');
+        const issueSelect = document.getElementById('reclamacao-tipo');
+        const detailsInput = document.getElementById('reclamacao-detalhes');
+
+        const setRequiredMessage = (input, message) => {
+            if (!input) {
+                return;
+            }
+            input.setCustomValidity(input.value ? '' : message);
+        };
+
+        const sanitizePhone = () => {
+            if (!phoneInput) {
+                return;
+            }
+            const digits = phoneInput.value.replace(/\D/g, '').slice(0, 11);
+            phoneInput.value = digits;
+        };
+
+        const updateTimeValidity = () => {
+            if (!timeInput) {
+                return;
+            }
+            if (!timeInput.value) {
+                timeInput.setCustomValidity('Selecione o horário da visita.');
+                return;
+            }
+            timeInput.setCustomValidity(
+                isTimeAllowed(timeInput.value)
+                    ? ''
+                    : 'Horários disponíveis para técnico e suporte: 08:30–11:30 e 14:00–18:00.'
+            );
+        };
+
+        const updateRequiredValidity = () => {
+            setRequiredMessage(nameInput, 'Informe o nome completo.');
+            setRequiredMessage(phoneInput, 'Informe o telefone para contato.');
+            setRequiredMessage(streetInput, 'Informe a rua.');
+            setRequiredMessage(localitySelect, 'Selecione a localidade.');
+            setRequiredMessage(visitInput, 'Selecione a data da visita.');
+            setRequiredMessage(timeInput, 'Selecione o horário da visita.');
+            setRequiredMessage(issueSelect, 'Selecione o tipo de problema.');
+            setRequiredMessage(detailsInput, 'Descreva o problema.');
+        };
+
+        nameInput?.addEventListener('input', () => setRequiredMessage(nameInput, 'Informe o nome completo.'));
+        phoneInput?.addEventListener('input', () => {
+            sanitizePhone();
+            setRequiredMessage(phoneInput, 'Informe o telefone para contato.');
+        });
+        streetInput?.addEventListener('input', () => setRequiredMessage(streetInput, 'Informe a rua.'));
+        localitySelect?.addEventListener('change', () => setRequiredMessage(localitySelect, 'Selecione a localidade.'));
+        visitInput?.addEventListener('change', () => setRequiredMessage(visitInput, 'Selecione a data da visita.'));
+        timeInput?.addEventListener('change', updateTimeValidity);
+        issueSelect?.addEventListener('change', () => setRequiredMessage(issueSelect, 'Selecione o tipo de problema.'));
+        detailsInput?.addEventListener('input', () => setRequiredMessage(detailsInput, 'Descreva o problema.'));
+
+        reclamacaoForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            sanitizePhone();
+            updateRequiredValidity();
+            updateTimeValidity();
+
+            if (!reclamacaoForm.checkValidity()) {
+                reclamacaoForm.reportValidity();
+                return;
+            }
+
+            const fullName = nameInput?.value.trim() || 'Não informado';
+            const phone = phoneInput?.value.trim() || 'Não informado';
+            const street = streetInput?.value.trim() || 'Não informado';
+            const neighborhood = neighborhoodInput?.value.trim() || 'Não informado';
+            const locality = localitySelect?.value || 'Não informado';
+            const reference = referenceInput?.value.trim() || 'Não informado';
+            const visitDate = formatVisitDate(visitInput?.value || '');
+            const visitTime = formatVisitTime(timeInput?.value || '');
+            const issueType = issueSelect?.value || 'Não informado';
+            const details = detailsInput?.value.trim() || 'Não informado';
+
+            const message = [
+                '🛠️ *Reclamação de Internet (site)*',
+                `👤 Nome: ${fullName}`,
+                `📞 Telefone: ${phone}`,
+                `📍 Rua: ${street}`,
+                `🏘️ Bairro: ${neighborhood}`,
+                `🌆 Localidade: ${locality}`,
+                `🧭 Referência: ${reference}`,
+                `🗓️ Visita: ${visitDate} às ${visitTime}`,
+                `⚠️ Problema: ${issueType}`,
+                `📝 Detalhes: ${details}`,
             ].join('\n');
 
             const url = `https://wa.me/557799390980?text=${encodeURIComponent(message)}`;
