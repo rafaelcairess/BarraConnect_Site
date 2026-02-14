@@ -1,3 +1,12 @@
+/*
+Passo a passo geral:
+1) loadPartials() carrega os arquivos HTML marcados com data-include.
+2) initUI() inicializa menus, selecoes e formularios.
+3) Os formularios geram a mensagem e abrem o WhatsApp do escritorio.
+4) No DOMContentLoaded, carregamos os parciais e ativamos a UI.
+*/
+
+// Carrega os parciais (header, sections, footer) usando fetch e injeta no DOM.
 const loadPartials = async () => {
     const cacheBuster = 'v=2';
     const placeholders = document.querySelectorAll('[data-include]');
@@ -8,11 +17,13 @@ const loadPartials = async () => {
         }
 
         try {
+            // Evita cache para atualizar sempre que o arquivo mudar.
             const url = path.includes('?') ? `${path}&${cacheBuster}` : `${path}?${cacheBuster}`;
             const response = await fetch(url, { cache: 'no-store' });
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
+            // Garante leitura em UTF-8 para nao quebrar acentuacao.
             const buffer = await response.arrayBuffer();
             const decoder = new TextDecoder('utf-8');
             const html = decoder.decode(buffer);
@@ -25,11 +36,14 @@ const loadPartials = async () => {
     await Promise.all(requests);
 };
 
+// Inicializa interacoes e formularios depois que os parciais entram no DOM.
 const initUI = () => {
+    // 1) Ativa os icones do Lucide.
     if (window.lucide?.createIcons) {
         lucide.createIcons();
     }
 
+    // 2) Menu mobile (abre/fecha).
     const root = document.documentElement;
     const menuToggle = document.querySelector('[data-menu-toggle]');
     const menuTargetId = menuToggle?.dataset.menuTarget;
@@ -53,6 +67,7 @@ const initUI = () => {
         });
     }
 
+    // 3) Tabs/variantes (Residencial/Comercial) e estado das escolhas.
     const variantButtons = document.querySelectorAll('[data-variant-toggle]');
     const variantSections = document.querySelectorAll('[data-variant]');
 
@@ -69,6 +84,7 @@ const initUI = () => {
 
     const updateSummary = () => {};
 
+    // 4) Formatacao de data/hora para a mensagem do WhatsApp.
     const formatVisitDate = (value) => {
         if (!value) {
             return 'Não informado';
@@ -102,6 +118,7 @@ const initUI = () => {
         return `${normalizedHour}:${minute} ${period}`;
     };
 
+    // Limita horarios conforme regra do suporte/tecnico.
     const isTimeAllowed = (value) => {
         if (!value) {
             return false;
@@ -109,6 +126,7 @@ const initUI = () => {
         return (value >= '08:30' && value <= '11:30') || (value >= '14:00' && value <= '18:00');
     };
 
+    // 5) Alterna abas de perfil.
     const setVariant = (variant) => {
         variantButtons.forEach((button) => {
             const isActive = button.dataset.variantToggle === variant;
@@ -136,6 +154,7 @@ const initUI = () => {
         });
     });
 
+    // 6) Clique nos planos.
     const planButtons = document.querySelectorAll('[data-plan-select]');
     planButtons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -160,6 +179,7 @@ const initUI = () => {
         });
     });
 
+    // 7) Clique nos roteadores.
     const routerButtons = document.querySelectorAll('[data-router-select]');
     routerButtons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -190,6 +210,7 @@ const initUI = () => {
         });
     });
 
+    // 8) Botao rapido de WhatsApp (resumo rapido).
     const whatsappButtons = document.querySelectorAll('[data-whatsapp-send]');
     whatsappButtons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -209,6 +230,7 @@ const initUI = () => {
         });
     });
 
+    // 9) Formulario de cadastro (envia dados para o WhatsApp).
     const cadastroForm = document.getElementById('cadastro-form');
     if (cadastroForm) {
         const nameInput = document.getElementById('cadastro-nome');
@@ -286,6 +308,7 @@ const initUI = () => {
             setRequiredMessage(timeInput, 'Selecione o horário da visita.');
         };
 
+        // Eventos de validacao em tempo real.
         cpfInput?.addEventListener('input', () => {
             sanitizeCpf();
             setRequiredMessage(cpfInput, 'Informe o CPF.');
@@ -335,6 +358,7 @@ const initUI = () => {
             }
         }
 
+        // Envio: valida, monta mensagem e abre WhatsApp do escritorio.
         cadastroForm.addEventListener('submit', (event) => {
             event.preventDefault();
             sanitizeCpf();
@@ -379,6 +403,7 @@ const initUI = () => {
         });
     }
 
+    // 10) Formulario de reclamacao (envia dados para o WhatsApp).
     const reclamacaoForm = document.getElementById('reclamacao-form');
     if (reclamacaoForm) {
         const nameInput = document.getElementById('reclamacao-nome');
@@ -392,6 +417,8 @@ const initUI = () => {
         const issueSelect = document.getElementById('reclamacao-tipo');
         const detailsInput = document.getElementById('reclamacao-detalhes');
 
+        // Utilitarios de validacao e limpeza de dados.
+        // Utilitarios de validacao e limpeza.
         const setRequiredMessage = (input, message) => {
             if (!input) {
                 return;
@@ -433,6 +460,7 @@ const initUI = () => {
             setRequiredMessage(detailsInput, 'Descreva o problema.');
         };
 
+        // Eventos de validacao em tempo real.
         nameInput?.addEventListener('input', () => setRequiredMessage(nameInput, 'Informe o nome completo.'));
         phoneInput?.addEventListener('input', () => {
             sanitizePhone();
@@ -445,6 +473,7 @@ const initUI = () => {
         issueSelect?.addEventListener('change', () => setRequiredMessage(issueSelect, 'Selecione o tipo de problema.'));
         detailsInput?.addEventListener('input', () => setRequiredMessage(detailsInput, 'Descreva o problema.'));
 
+        // Envio: valida, monta mensagem e abre WhatsApp do escritorio.
         reclamacaoForm.addEventListener('submit', (event) => {
             event.preventDefault();
             sanitizePhone();
@@ -485,6 +514,7 @@ const initUI = () => {
         });
     }
 
+    // 11) Expansao/retracao de blocos com toggle (ex.: FAQ).
     const collapseButtons = document.querySelectorAll('[data-collapse-toggle]');
     collapseButtons.forEach((button) => {
         const targetId = button.dataset.collapseToggle;
@@ -508,6 +538,7 @@ const initUI = () => {
     updateSummary();
 };
 
+// 12) Fluxo principal: carrega HTMLs e inicia UI.
 document.addEventListener('DOMContentLoaded', async () => {
     await loadPartials();
     initUI();

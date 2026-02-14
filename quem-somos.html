@@ -6,6 +6,11 @@
     <title>Barra Connect | Quem Somos</title>
     <meta name="description" content="Conheça a história e o compromisso da Barra Connect com Barra da Estiva e região.">
 
+    <!-- Passo a passo:
+         1) Carrega estilos e Tailwind.
+         2) Injeta header + conteudo de quem somos + footer.
+         3) app.js ativa o menu mobile. -->
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,11 +30,12 @@
     <script src="https://unpkg.com/lucide@latest" defer></script>
 </head>
 <body class="font-sans text-slate-300 bg-[#0f1c3a] antialiased transition-colors duration-300">
+    <!-- Parciais carregados dinamicamente em app.js (loadPartials) -->
     <div data-include="partials/header.html"></div>
     <div data-include="partials/quem-somos.html"></div>
     <div data-include="partials/footer.html"></div>
 
-    <!-- Scripts -->
+    <!-- Scripts (carregam parciais e inicializam interacoes) -->
     <script src="js/app.js?v=2" defer></script>
 </body>
 </html>

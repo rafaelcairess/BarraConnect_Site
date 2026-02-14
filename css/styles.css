@@ -1,15 +1,18 @@
+/* Base visual: fundo com padrao de pontos para o hero. */
 .hero-pattern {
     background-color: #0b1224;
     background-image: radial-gradient(#1b2a4a 1px, transparent 1px);
     background-size: 32px 32px;
 }
 
+/* Evita scroll horizontal em telas pequenas. */
 html,
 body {
     max-width: 100%;
     overflow-x: hidden;
 }
 
+/* Midias responsivas. */
 img,
 svg,
 video,
@@ -18,6 +21,7 @@ canvas {
     height: auto;
 }
 
+/* Tokens de marca (azul principal). */
 .bg-brand-primary {
     background-color: #2563eb;
 }
@@ -30,6 +34,7 @@ canvas {
     border-color: #2563eb;
 }
 
+/* Fundo/Texto base escuro. */
 .text-brand-dark {
     color: #0b1224;
 }
@@ -38,6 +43,7 @@ canvas {
     background-color: #0b1224;
 }
 
+/* Tabs ativas/inativas (perfil). */
 .active-tab {
     background-color: #2563eb;
     color: white;
@@ -61,6 +67,7 @@ canvas {
     color: #38bdf8;
 }
 
+/* Tema escuro com gradientes de marca no background. */
 .dark body {
     background-color: #0f1c3a;
     background-image:
@@ -96,6 +103,7 @@ canvas {
     color: #c6d2f2;
 }
 
+/* Animacao simples usada nos toggles. */
 .fade-in {
     animation: fadeIn 0.5s ease-in-out;
 }
