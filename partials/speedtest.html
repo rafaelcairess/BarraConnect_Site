@@ -1,0 +1,42 @@
+<!-- SpeedTest Section (Ookla Custom Embed) -->
+<section id="speedtest" class="py-20 bg-white border-t border-slate-100">
+    <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto rounded-3xl overflow-hidden border border-slate-200 shadow-2xl">
+            <div class="bg-gradient-to-r from-[#0b1f5f] via-[#0b2a7a] to-[#0b1f5f] text-white px-6 py-10 md:px-12">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                    <div>
+                        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-xs uppercase tracking-[0.35em]">
+                            SpeedTest
+                        </span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold mt-4">Teste sua velocidade</h2>
+                        <p class="text-blue-100 mt-3 max-w-xl">
+                            Faça o teste diretamente aqui e confira o desempenho da sua conexão.
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center gap-3">
+                        <a href="#speedtest-widget" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-white/40 text-white font-semibold hover:border-white transition">
+                            Iniciar teste
+                            <i data-lucide="play" class="h-5 w-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="speedtest-widget" class="bg-white p-4 md:p-6">
+                <div class="min-h-[360px]">
+                    <div class="w-full h-0 pb-[56.25%] relative">
+                        <iframe
+                            title="Barra Connect Speedtest"
+                            src="https://barraconnect.speedtestcustom.com/"
+                            class="absolute inset-0 w-full h-full min-h-[360px] rounded-2xl border border-slate-200"
+                            style="border: none; overflow: hidden;"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            allow="fullscreen"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

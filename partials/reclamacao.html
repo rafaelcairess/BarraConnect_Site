@@ -1,43 +1,43 @@
-﻿<!-- Reclamação Section:
+<!-- Reclamação Section:
      1) Usuario descreve o problema.
      2) app.js valida dados e horario.
      3) Mensagem formatada e enviada ao WhatsApp do escritorio. -->
-<section id="reclamacao" class="pt-28 pb-20 md:pt-32 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
+<section id="reclamacao" class="pt-28 pb-20 md:pt-32 bg-white border-t border-slate-100">
     <div class="container mx-auto px-4">
         <div class="max-w-5xl mx-auto mb-8">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Reclamação de Internet</h2>
-            <p class="text-slate-600 dark:text-slate-300 mt-3">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900">Reclamação de Internet</h2>
+            <p class="text-slate-600 mt-3">
                 Envie sua solicitação direto para o suporte e agilize o atendimento.
             </p>
         </div>
 
-        <div class="max-w-5xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-6 md:p-10">
+        <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 md:p-10">
             <form id="reclamacao-form" class="space-y-8" novalidate lang="pt-BR">
                 <div class="grid gap-6 lg:grid-cols-2">
                     <div class="space-y-6">
-                        <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/50 p-5">
+                        <div class="rounded-xl border border-slate-200 bg-slate-50/80 p-5">
                             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Dados pessoais</h3>
                             <div class="grid sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="reclamacao-nome" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Nome completo</label>
+                                    <label for="reclamacao-nome" class="block text-sm font-semibold text-slate-700 mb-2">Nome completo</label>
                                     <input id="reclamacao-nome" name="nome" type="text" required
-                                        class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                                        class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
                                 </div>
                                 <div>
-                                    <label for="reclamacao-telefone" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Telefone para contato</label>
+                                    <label for="reclamacao-telefone" class="block text-sm font-semibold text-slate-700 mb-2">Telefone para contato</label>
                                     <input id="reclamacao-telefone" name="telefone" type="tel" inputmode="tel" autocomplete="tel" required
-                                        class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                                        class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/50 p-5">
+                        <div class="rounded-xl border border-slate-200 bg-slate-50/80 p-5">
                             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Problema</h3>
                             <div class="space-y-4">
                                 <div>
-                                    <label for="reclamacao-tipo" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Tipo de problema</label>
+                                    <label for="reclamacao-tipo" class="block text-sm font-semibold text-slate-700 mb-2">Tipo de problema</label>
                                     <select id="reclamacao-tipo" name="tipo" required
-                                        class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                                        class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
                                         <option value="" disabled selected>Selecione</option>
                                         <option value="Internet lenta">Internet lenta</option>
                                         <option value="Quedas frequentes">Quedas frequentes</option>
@@ -47,62 +47,62 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="reclamacao-detalhes" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Detalhes do problema</label>
+                                    <label for="reclamacao-detalhes" class="block text-sm font-semibold text-slate-700 mb-2">Detalhes do problema</label>
                                     <textarea id="reclamacao-detalhes" name="detalhes" rows="4" required
-                                        class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40"></textarea>
+                                        class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-primary/40"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="space-y-6">
-                        <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/50 p-5">
+                        <div class="rounded-xl border border-slate-200 bg-slate-50/80 p-5">
                             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Endereço</h3>
                             <div class="grid sm:grid-cols-2 gap-4">
                                 <div class="sm:col-span-2">
-                                    <label for="reclamacao-rua" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Rua</label>
+                                    <label for="reclamacao-rua" class="block text-sm font-semibold text-slate-700 mb-2">Rua</label>
                                     <input id="reclamacao-rua" name="rua" type="text" required
-                                        class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                                        class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
                                 </div>
                                 <div>
-                                    <label for="reclamacao-bairro" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Bairro</label>
+                                    <label for="reclamacao-bairro" class="block text-sm font-semibold text-slate-700 mb-2">Bairro</label>
                                     <input id="reclamacao-bairro" name="bairro" type="text"
-                                        class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                                        class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
                                 </div>
                                 <div>
-                                    <label for="reclamacao-localidade" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Cidade ou zona rural</label>
+                                    <label for="reclamacao-localidade" class="block text-sm font-semibold text-slate-700 mb-2">Cidade ou zona rural</label>
                                     <select id="reclamacao-localidade" name="localidade" required
-                                        class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                                        class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
                                         <option value="" disabled selected>Selecione</option>
                                         <option value="Barra da Estiva (cidade)">Barra da Estiva (cidade)</option>
                                         <option value="Zona rural">Zona rural</option>
                                     </select>
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label for="reclamacao-referencia" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Ponto de referência</label>
+                                    <label for="reclamacao-referencia" class="block text-sm font-semibold text-slate-700 mb-2">Ponto de referência</label>
                                     <input id="reclamacao-referencia" name="referencia" type="text"
-                                        class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                                        class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/50 p-5">
+                        <div class="rounded-xl border border-slate-200 bg-slate-50/80 p-5">
                             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Visita técnica</h3>
                             <div class="grid sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="reclamacao-visita" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Melhor data para visita</label>
+                                    <label for="reclamacao-visita" class="block text-sm font-semibold text-slate-700 mb-2">Melhor data para visita</label>
                                     <input id="reclamacao-visita" name="visita" type="date" required lang="pt-BR"
-                                        class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                                        class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
                                 </div>
                                 <div>
-                                    <label for="reclamacao-horario" class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Horário</label>
+                                    <label for="reclamacao-horario" class="block text-sm font-semibold text-slate-700 mb-2">Horário</label>
                                     <input id="reclamacao-horario" name="horario" type="time" required lang="pt-BR"
-                                        class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
+                                        class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-primary/40">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex items-center gap-3 flex-wrap text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
+                        <div class="flex items-center gap-3 flex-wrap text-xs sm:text-sm font-semibold text-slate-700">
                             <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary">
                                 <i data-lucide="clock" class="h-4 w-4"></i>
                             </span>
@@ -111,8 +111,8 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-t border-slate-200 dark:border-slate-800 pt-6">
-                    <p class="text-sm text-slate-600 dark:text-slate-300">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-t border-slate-200 pt-6">
+                    <p class="text-sm text-slate-600">
                         Enviaremos sua reclamação direto para o suporte.
                     </p>
                     <button type="submit" class="w-full lg:w-auto inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded-full transition shadow-lg shadow-green-900/30">
