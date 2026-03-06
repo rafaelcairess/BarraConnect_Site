@@ -1,23 +1,34 @@
-<!-- SpeedTest Section (Ookla Custom Embed) -->
-<section id="speedtest" class="py-20 bg-white border-t border-slate-100">
-    <div class="container mx-auto px-4">
-        <div class="max-w-5xl mx-auto rounded-3xl overflow-hidden border border-slate-200 shadow-2xl">
-            <div class="bg-gradient-to-r from-[#0b1f5f] via-[#0b2a7a] to-[#0b1f5f] text-white px-6 py-10 md:px-12">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                    <div>
-                        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-xs uppercase tracking-[0.35em]">
+<!-- SpeedTest Section (OpenSpeedTest Embed) -->
+<section id="speedtest" class="py-20 bg-white border-t border-slate-100 relative overflow-hidden">
+    <div class="speedtest-grid"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-5xl mx-auto speedtest-shell">
+            <div class="speedtest-hero px-6 py-10 md:px-12">
+                <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                    <div class="max-w-2xl">
+                        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs uppercase speedtest-badge">
                             SpeedTest
                         </span>
                         <h2 class="text-3xl md:text-4xl font-extrabold mt-4">Teste sua velocidade</h2>
-                        <p class="text-blue-100 mt-3 max-w-xl">
+                        <p class="text-blue-100 mt-3 text-lg">
                             Faça o teste diretamente aqui e confira o desempenho da sua conexão.
                         </p>
+                        <div class="mt-6 flex flex-wrap items-center gap-4">
+                            <a href="#speedtest-widget" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white font-bold speedtest-btn transition">
+                                Iniciar teste
+                                <i data-lucide="play" class="h-5 w-5"></i>
+                            </a>
+                            <span class="text-xs uppercase tracking-[0.25em] text-blue-200">OpenSpeedTest</span>
+                        </div>
                     </div>
-                    <div class="flex flex-col sm:flex-row items-center gap-3">
-                        <a href="#speedtest-widget" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-white/40 text-white font-semibold hover:border-white transition">
-                            Iniciar teste
-                            <i data-lucide="play" class="h-5 w-5"></i>
-                        </a>
+                    <div class="hidden md:flex items-center justify-center">
+                        <div class="speedtest-gauge">
+                            <div class="speedtest-gauge-content">
+                                <i data-lucide="gauge" class="h-10 w-10 mx-auto mb-3"></i>
+                                <div class="text-3xl font-extrabold leading-none">Mbps</div>
+                                <div class="text-xs uppercase tracking-[0.25em] text-blue-200 mt-2">Speed</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
